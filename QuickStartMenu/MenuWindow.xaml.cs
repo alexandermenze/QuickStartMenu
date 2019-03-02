@@ -1,4 +1,7 @@
-﻿using System;
+﻿using QuickStartMenu.Domain.Interfaces;
+using QuickStartMenu.Domain.ValueTypes;
+using QuickStartMenu.Infrastructure.Windows;
+using System;
 using System.Windows;
 
 namespace QuickStartMenu
@@ -15,6 +18,6 @@ namespace QuickStartMenu
         }
 
         private void OnDeactivated(object sender, EventArgs e) 
-            => Close();
+            => Hide();
     }
 }

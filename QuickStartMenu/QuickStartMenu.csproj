@@ -59,6 +59,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MenuWindow.xaml.cs">
@@ -94,6 +95,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickStartMenu.Domain\QuickStartMenu.Domain.csproj">
+      <Project>{8BC46D1D-6285-4927-8542-14AA46E4006F}</Project>
+      <Name>QuickStartMenu.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickStartMenu.Infrastructure\QuickStartMenu.Infrastructure.csproj">
+      <Project>{6BE5C79A-0318-4B2D-953E-488317ADB4C7}</Project>
+      <Name>QuickStartMenu.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
