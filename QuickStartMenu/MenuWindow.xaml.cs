@@ -1,7 +1,4 @@
-﻿using QuickStartMenu.Domain.Interfaces;
-using QuickStartMenu.Domain.ValueTypes;
-using QuickStartMenu.Infrastructure.Windows;
-using System;
+﻿using System;
 using System.Windows;
 
 namespace QuickStartMenu
@@ -19,5 +16,12 @@ namespace QuickStartMenu
 
         private void OnDeactivated(object sender, EventArgs e) 
             => Hide();
+
+        private void MenuWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var desktopWorkingArea = SystemParameters.WorkArea;
+            Left = desktopWorkingArea.Right - Width;
+            Top = desktopWorkingArea.Bottom - Height;
+        }
     }
 }
