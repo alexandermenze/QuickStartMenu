@@ -9,6 +9,7 @@ namespace QuickStartMenu
         {
             InitializeComponent();
             Deactivated += OnDeactivated;
+            
 
             SetStartupPosition();
         }
