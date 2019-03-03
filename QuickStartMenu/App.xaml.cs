@@ -1,5 +1,6 @@
 ﻿using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Domain.ValueTypes;
+using QuickStartMenu.Extensions;
 using QuickStartMenu.Infrastructure.Windows;
 using System.Windows;
 
@@ -34,8 +35,7 @@ namespace QuickStartMenu
 
         private void KeyboardHook_OnKeyPressed(object sender, KeyPressedEventArgs e)
         {
-            _menuWindow.Show();
-            _menuWindow.Activate();
+            _menuWindow.BringToTop();
         }
     }
 }

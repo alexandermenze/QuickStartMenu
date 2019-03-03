@@ -108,6 +108,10 @@
       <Project>{8BC46D1D-6285-4927-8542-14AA46E4006F}</Project>
       <Name>QuickStartMenu.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuickStartMenu.Extensions\QuickStartMenu.Extensions.csproj">
+      <Project>{D31A71E2-EC86-4115-B144-B78E370F2C13}</Project>
+      <Name>QuickStartMenu.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickStartMenu.Infrastructure\QuickStartMenu.Infrastructure.csproj">
       <Project>{6BE5C79A-0318-4B2D-953E-488317ADB4C7}</Project>
       <Name>QuickStartMenu.Infrastructure</Name>

@@ -12,6 +12,7 @@ namespace QuickStartMenu
         {
             InitializeComponent();
             Deactivated += OnDeactivated;
+            
         }
 
         private void OnDeactivated(object sender, EventArgs e) 
@@ -19,9 +20,7 @@ namespace QuickStartMenu
 
         private void MenuWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var desktopWorkingArea = SystemParameters.WorkArea;
-            Left = desktopWorkingArea.Right - Width;
-            Top = desktopWorkingArea.Bottom - Height;
+            
         }
     }
 }
