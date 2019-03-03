@@ -1,4 +1,4 @@
-using QuickStartMenu.Domain.Interfaces;
+﻿using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Domain.ValueTypes;
 using QuickStartMenu.Extensions;
 using QuickStartMenu.Infrastructure.Windows;
@@ -6,9 +6,6 @@ using System.Windows;
 
 namespace QuickStartMenu
 {
-    /// <summary>
-    /// Interaktionslogik für "App.xaml"
-    /// </summary>
     public partial class App : Application
     {
         private readonly Settings.Settings _settings;

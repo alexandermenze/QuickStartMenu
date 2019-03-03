@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MenuWindow" Height="450" Width="800"
-        WindowStyle="None"
-        Loaded="MenuWindow_OnLoaded">
+        WindowStyle="None">
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
