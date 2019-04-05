@@ -9,10 +9,13 @@ namespace QuickStartMenu
         {
             InitializeComponent();
             Deactivated += OnDeactivated;
-            
+            Activated += OnActivated;
 
             SetStartupPosition();
         }
+
+        private void OnActivated(object sender, EventArgs e) 
+            => TxtSearchBar.Focus();
 
         private void OnDeactivated(object sender, EventArgs e) 
             => Hide();

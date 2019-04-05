@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:quickStartEntry="clr-namespace:QuickStartMenu.Controls.QuickStartEntry"
         mc:Ignorable="d"
         Title="MenuWindow" Height="450" Width="800"
         WindowStyle="None">
@@ -33,6 +34,9 @@
                   Margin="10"
                   VerticalAlignment="Stretch"
                   VerticalContentAlignment="Top">
+            <ListViewItem>
+                <quickStartEntry:QuickStartEntry></quickStartEntry:QuickStartEntry>
+            </ListViewItem>
         </ListView>
 
     </Grid>
