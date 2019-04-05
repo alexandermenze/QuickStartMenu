@@ -12,11 +12,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0" Name="TxtSearchBar" Margin="10"/>
-        <TextBlock Grid.Row="0" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Padding="8 0 0 0" Foreground="DarkGray">
+        <TextBlock Grid.Row="0" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Padding="3 0 0 0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -28,6 +28,12 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+
+        <ListView Grid.Row="1"
+                  Margin="10"
+                  VerticalAlignment="Stretch"
+                  VerticalContentAlignment="Top">
+        </ListView>
 
     </Grid>
 </Window>
