@@ -30,14 +30,39 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ListView Grid.Row="1"
+        <DataGrid Grid.Row="1"
                   Margin="10"
                   VerticalAlignment="Stretch"
-                  VerticalContentAlignment="Top">
-            <ListViewItem>
-                <quickStartEntry:QuickStartEntry></quickStartEntry:QuickStartEntry>
-            </ListViewItem>
-        </ListView>
+                  VerticalContentAlignment="Top"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Icon" Width="SizeToCells"
+                                        IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                            <Image Source="{Binding Icon}" Width="20" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Progam" Width="SizeToCells"
+                                        IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                            <TextBlock Text="{Binding Name}" MinWidth="60" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Path" Width="SizeToCells"
+                                        IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                            <TextBlock Text="{Binding Path}" MinWidth="60" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

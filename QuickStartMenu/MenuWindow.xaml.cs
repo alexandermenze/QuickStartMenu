@@ -1,4 +1,7 @@
-﻿using System;
+﻿using QuickStartMenu.Controls.QuickStartEntry;
+using QuickStartMenu.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace QuickStartMenu
@@ -12,6 +15,17 @@ namespace QuickStartMenu
             Activated += OnActivated;
 
             SetStartupPosition();
+
+            DataContext = new List<QuickStartEntryModel>
+            {
+                new QuickStartEntryModel
+                {
+                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(
+                        @"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe").ToImageSource(),
+                    Name = "Chrome",
+                    Path = @"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe"
+                }
+            };
         }
 
         private void OnActivated(object sender, EventArgs e) 
