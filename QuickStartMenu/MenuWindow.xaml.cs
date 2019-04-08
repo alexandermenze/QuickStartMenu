@@ -1,5 +1,5 @@
-﻿using QuickStartMenu.Controls.QuickStartEntry;
-using QuickStartMenu.Extensions;
+﻿using QuickStartMenu.Domain.Interfaces;
+using QuickStartMenu.Infrastructure.Windows;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -16,22 +16,19 @@ namespace QuickStartMenu
 
             SetStartupPosition();
 
-            DataContext = new List<QuickStartEntryModel>
+            DataContext = new List<IQuickStartEntry>
             {
-                new QuickStartEntryModel
-                {
-                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(
-                        @"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe").ToImageSource(),
-                    Name = "Chrome",
-                    Path = @"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe"
-                }
+                ProgramQuickStartEntry.FromPath(@"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe", "Chrome"),
+                ProgramQuickStartEntry.FromPath(@"C:\Program Files (x86)\WinSCP\WinSCP.exe", "WinSCP"),
+                ProgramQuickStartEntry.FromPath(@"C:\Program Files\GIMP 2\bin\gimp-2.10.exe", "GIMP"),
+                ProgramQuickStartEntry.FromPath(@"C:\Users\menze\Desktop\OneNote.lnk", "OneNote")
             };
         }
 
-        private void OnActivated(object sender, EventArgs e) 
+        private void OnActivated(object sender, EventArgs e)
             => TxtSearchBar.Focus();
 
-        private void OnDeactivated(object sender, EventArgs e) 
+        private void OnDeactivated(object sender, EventArgs e)
             => Hide();
 
         private void SetStartupPosition()
@@ -40,5 +37,8 @@ namespace QuickStartMenu
             Left = desktopWorkingArea.Right - Width;
             Top = desktopWorkingArea.Bottom - Height;
         }
+
+        private void DataGrid_OnMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) 
+            => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
     }
 }

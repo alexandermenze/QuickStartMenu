@@ -3,7 +3,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:quickStartEntry="clr-namespace:QuickStartMenu.Controls.QuickStartEntry"
         mc:Ignorable="d"
         Title="MenuWindow" Height="450" Width="800"
         WindowStyle="None">
@@ -30,17 +29,21 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <DataGrid Grid.Row="1"
+        <DataGrid Name="DataGrid"
+                  Grid.Row="1"
                   Margin="10"
                   VerticalAlignment="Stretch"
                   VerticalContentAlignment="Top"
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding}">
+                  ItemsSource="{Binding}"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  MouseDoubleClick="DataGrid_OnMouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Icon" Width="SizeToCells"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                        <DataTemplate>
                             <Image Source="{Binding Icon}" Width="20" Margin="2"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -48,7 +51,7 @@
                 <DataGridTemplateColumn Header="Progam" Width="SizeToCells"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                        <DataTemplate>
                             <TextBlock Text="{Binding Name}" MinWidth="60" Margin="2"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -56,7 +59,7 @@
                 <DataGridTemplateColumn Header="Path" Width="SizeToCells"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="quickStartEntry:QuickStartEntryModel">
+                        <DataTemplate>
                             <TextBlock Text="{Binding Path}" MinWidth="60" Margin="2"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -60,10 +60,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\QuickStartEntry\QuickStartEntry.xaml.cs">
-      <DependentUpon>QuickStartEntry.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\QuickStartEntry\QuickStartEntryModel.cs" />
     <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,10 +93,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\QuickStartEntry\QuickStartEntry.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,6 +111,9 @@
       <Project>{6BE5C79A-0318-4B2D-953E-488317ADB4C7}</Project>
       <Name>QuickStartMenu.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\QuickStartEntry\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
