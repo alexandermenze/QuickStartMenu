@@ -1,4 +1,5 @@
 ﻿using QuickStartMenu.Domain.Interfaces;
+using QuickStartMenu.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,7 +49,7 @@ namespace QuickStartMenu
             if (!(obj is IQuickStartEntry quickStartEntry))
                 return false;
 
-            return quickStartEntry.Name.Contains(TxtSearchBar.Text);
+            return quickStartEntry.Name.ContainsIgnoreCase(TxtSearchBar.Text);
         }
     }
 }
