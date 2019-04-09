@@ -3,6 +3,7 @@ using QuickStartMenu.Infrastructure.Windows;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Data;
 
 namespace QuickStartMenu
 {
@@ -15,14 +16,6 @@ namespace QuickStartMenu
             Activated += OnActivated;
 
             SetStartupPosition();
-
-            DataContext = new List<IQuickStartEntry>
-            {
-                ProgramQuickStartEntry.FromPath(@"C:\Program Files (x86)\Google\Chrome Beta\Application\chrome.exe", "Chrome"),
-                ProgramQuickStartEntry.FromPath(@"C:\Program Files (x86)\WinSCP\WinSCP.exe", "WinSCP"),
-                ProgramQuickStartEntry.FromPath(@"C:\Program Files\GIMP 2\bin\gimp-2.10.exe", "GIMP"),
-                ProgramQuickStartEntry.FromPath(@"C:\Users\menze\Desktop\OneNote.lnk", "OneNote")
-            };
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -40,5 +33,21 @@ namespace QuickStartMenu
 
         private void DataGrid_OnMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) 
             => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
+
+        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                
+            }
+        }
+
+        private void CollectionViewSource_OnFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is IQuickStartEntry quickStartEntry))
+                return;
+
+            e.Accepted = quickStartEntry.Name.Contains(TxtSearchBar.Text);
+        }
     }
 }

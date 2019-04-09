@@ -9,13 +9,16 @@
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
+    <Window.Resources>
+        <CollectionViewSource x:Key="DataContextCollectionView" Source="{Binding}" Filter="CollectionViewSource_OnFilter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Name="TxtSearchBar" Margin="10"/>
+        <TextBox Grid.Row="0" Name="TxtSearchBar" Margin="10" KeyUp="TxtSearchBar_OnKeyUp"/>
         <TextBlock Grid.Row="0" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Padding="3 0 0 0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">

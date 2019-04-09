@@ -2,6 +2,11 @@
 using QuickStartMenu.Domain.ValueTypes;
 using QuickStartMenu.Extensions;
 using QuickStartMenu.Infrastructure.Windows;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace QuickStartMenu
@@ -21,8 +26,30 @@ namespace QuickStartMenu
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            _menuWindow.DataContext = GetShortcuts();
             RegisterHotKeys();
         }
+
+        private IList<IQuickStartEntry> GetShortcuts()
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create);
+            var shortcutsFolder = Path.Combine(appDataPath, nameof(QuickStartMenu), "Shortcuts");
+            EnsureFolderExists(shortcutsFolder);
+
+            var quickStartEntries = new List<IQuickStartEntry>();
+
+            return new DirectoryInfo(shortcutsFolder)
+                .EnumerateFiles()
+                .Select(file => 
+                    new ProgramQuickStartEntry(
+                        Icon.ExtractAssociatedIcon(file.FullName).ToImageSource(), 
+                        file.Name.Substring(0, file.Name.Length - file.Extension.Length), 
+                        file.FullName))
+                .ToList<IQuickStartEntry>();
+        }
+
+        private void EnsureFolderExists(string path) 
+            => Directory.CreateDirectory(path);
 
         private void RegisterHotKeys()
         {

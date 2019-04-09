@@ -20,13 +20,8 @@ namespace QuickStartMenu.Infrastructure.Windows
             Path = path;
         }
 
-        public void Execute()
-        {
-            new Process
-            {
-                StartInfo = new ProcessStartInfo(Path)
-            }.Start();
-        }
+        public void Execute() 
+            => Process.Start(Path);
 
         public static ProgramQuickStartEntry FromPath(string path, string name) 
             => new ProgramQuickStartEntry(System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource(), name, path);
