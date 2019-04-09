@@ -43,7 +43,7 @@ namespace QuickStartMenu
                 .Select(file => 
                     new ProgramQuickStartEntry(
                         Icon.ExtractAssociatedIcon(file.FullName).ToImageSource(), 
-                        file.Name.Substring(0, file.Name.Length - file.Extension.Length), 
+                        file.GetFileNameWithoutExtension(), 
                         file.FullName))
                 .ToList<IQuickStartEntry>();
         }
