@@ -14,19 +14,18 @@ namespace QuickStartMenu
     public partial class App : Application
     {
         private readonly Settings.Settings _settings;
-        private readonly IKeyboardHook _keyboardHook;
-        private readonly MenuWindow _menuWindow;
+        private IKeyboardHook _keyboardHook;
+        private MenuWindow _menuWindow;
 
         public App()
         {
             _settings = new Settings.Settings(QuickStartMenu.Properties.Settings.Default);
-            _keyboardHook = new WindowsKeyboardHook();
-            _menuWindow = new MenuWindow();
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            _menuWindow.DataContext = GetShortcuts();
+            _keyboardHook = new WindowsKeyboardHook();
+            _menuWindow = new MenuWindow(GetShortcuts());
             RegisterHotKeys();
         }
 
@@ -35,8 +34,6 @@ namespace QuickStartMenu
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create);
             var shortcutsFolder = Path.Combine(appDataPath, nameof(QuickStartMenu), "Shortcuts");
             EnsureFolderExists(shortcutsFolder);
-
-            var quickStartEntries = new List<IQuickStartEntry>();
 
             return new DirectoryInfo(shortcutsFolder)
                 .EnumerateFiles()

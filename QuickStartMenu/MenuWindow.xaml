@@ -9,9 +9,6 @@
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
-    <Window.Resources>
-        <CollectionViewSource x:Key="DataContextCollectionView" Source="{Binding}" Filter="CollectionViewSource_OnFilter"/>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -38,7 +35,6 @@
                   VerticalAlignment="Stretch"
                   VerticalContentAlignment="Top"
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding}"
                   CanUserAddRows="False"
                   IsReadOnly="True"
                   MouseDoubleClick="DataGrid_OnMouseDoubleClick">

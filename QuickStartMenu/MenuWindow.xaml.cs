@@ -1,7 +1,7 @@
 ﻿using QuickStartMenu.Domain.Interfaces;
-using QuickStartMenu.Infrastructure.Windows;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 
@@ -9,13 +9,19 @@ namespace QuickStartMenu
 {
     public partial class MenuWindow : Window
     {
-        public MenuWindow()
+        private readonly ICollectionView _collectionView;
+
+        public MenuWindow(IEnumerable<IQuickStartEntry> quickStartEntries)
         {
             InitializeComponent();
             Deactivated += OnDeactivated;
             Activated += OnActivated;
 
             SetStartupPosition();
+
+            _collectionView = CollectionViewSource.GetDefaultView(quickStartEntries);
+            _collectionView.Filter = DataGrid_OnFilter;
+            DataGrid.ItemsSource = _collectionView;
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -34,20 +40,15 @@ namespace QuickStartMenu
         private void DataGrid_OnMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) 
             => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
 
-        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                
-            }
-        }
+        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e) 
+            => _collectionView.Refresh();
 
-        private void CollectionViewSource_OnFilter(object sender, FilterEventArgs e)
+        private bool DataGrid_OnFilter(object obj)
         {
-            if (!(e.Item is IQuickStartEntry quickStartEntry))
-                return;
+            if (!(obj is IQuickStartEntry quickStartEntry))
+                return false;
 
-            e.Accepted = quickStartEntry.Name.Contains(TxtSearchBar.Text);
+            return quickStartEntry.Name.Contains(TxtSearchBar.Text);
         }
     }
 }
