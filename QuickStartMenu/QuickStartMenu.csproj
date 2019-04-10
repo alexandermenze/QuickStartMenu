@@ -99,6 +99,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QuickStartMenu.BL\QuickStartMenu.BL.csproj">
+      <Project>{D339D1C0-D349-4424-9C9A-04A70EB24E48}</Project>
+      <Name>QuickStartMenu.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickStartMenu.Domain\QuickStartMenu.Domain.csproj">
       <Project>{8BC46D1D-6285-4927-8542-14AA46E4006F}</Project>
       <Name>QuickStartMenu.Domain</Name>

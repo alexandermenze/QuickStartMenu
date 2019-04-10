@@ -1,28 +1,32 @@
-﻿using QuickStartMenu.Domain.Interfaces;
-using QuickStartMenu.Extensions;
+﻿using QuickStartMenu.BL.Comparer;
+using QuickStartMenu.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows;
-using System.Windows.Data;
+using System.Windows.Controls;
 
 namespace QuickStartMenu
 {
     public partial class MenuWindow : Window
     {
-        private readonly ICollectionView _collectionView;
+        private readonly IListView<IQuickStartEntry> _listView;
 
         public MenuWindow(IEnumerable<IQuickStartEntry> quickStartEntries)
         {
+            _listView =
+                new BusinessLogic.DataStructures.ListView<IQuickStartEntry>(quickStartEntries.ToList())
+                {
+                    SortFunction = new DamerauLevenshteinSorter { CompareValueGetter = () => TxtSearchBar.Text }
+                };
+
             InitializeComponent();
             Deactivated += OnDeactivated;
             Activated += OnActivated;
 
             SetStartupPosition();
 
-            _collectionView = CollectionViewSource.GetDefaultView(quickStartEntries);
-            _collectionView.Filter = DataGrid_OnFilter;
-            DataGrid.ItemsSource = _collectionView;
+            DataGrid.ItemsSource = _listView;
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -41,15 +45,10 @@ namespace QuickStartMenu
         private void DataGrid_OnMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) 
             => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
 
-        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e) 
-            => _collectionView.Refresh();
-
-        private bool DataGrid_OnFilter(object obj)
+        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (!(obj is IQuickStartEntry quickStartEntry))
-                return false;
-
-            return quickStartEntry.Name.ContainsIgnoreCase(TxtSearchBar.Text);
+            _listView.Refresh();
+            DataGrid.
         }
     }
 }
