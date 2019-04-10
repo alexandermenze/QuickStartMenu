@@ -46,6 +46,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridCellInfoExtensions.cs" />
     <Compile Include="FileInfoExtensions.cs" />
     <Compile Include="IconExtensions.cs" />
     <Compile Include="KeysExtensions.cs" />

@@ -37,7 +37,8 @@
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
-                  MouseDoubleClick="DataGrid_OnMouseDoubleClick">
+                  MouseDoubleClick="DataGrid_OnMouseDoubleClick"
+                  PreviewKeyDown="DataGrid_OnKeyPress">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Icon" Width="SizeToCells"
                                         IsReadOnly="True">

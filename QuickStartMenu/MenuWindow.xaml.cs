@@ -1,10 +1,12 @@
 ﻿using QuickStartMenu.BL.Comparer;
 using QuickStartMenu.Domain.Interfaces;
+using QuickStartMenu.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace QuickStartMenu
 {
@@ -33,7 +35,10 @@ namespace QuickStartMenu
             => TxtSearchBar.Focus();
 
         private void OnDeactivated(object sender, EventArgs e)
-            => Hide();
+        {
+            TxtSearchBar.Clear();
+            Hide();
+        }
 
         private void SetStartupPosition()
         {
@@ -42,13 +47,31 @@ namespace QuickStartMenu
             Top = desktopWorkingArea.Bottom - Height;
         }
 
-        private void DataGrid_OnMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) 
-            => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
+        private void DataGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e) 
+            => StartSelected();
 
-        private void TxtSearchBar_OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void DataGrid_OnKeyPress(object sender, KeyEventArgs e)
         {
-            _listView.Refresh();
-            DataGrid.
+            if (e.Key != Key.Enter)
+                return;
+
+            e.Handled = true;
+            StartSelected();
         }
+
+        private void TxtSearchBar_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Down)
+            {
+                Keyboard.Focus(DataGrid.SelectedCells.First().GetCell());
+                return;
+            }
+
+            _listView.Refresh();
+            DataGrid.SelectedIndex = 0;
+        }
+
+        private void StartSelected() 
+            => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
     }
 }
