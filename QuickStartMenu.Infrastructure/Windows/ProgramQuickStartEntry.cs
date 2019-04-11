@@ -1,5 +1,6 @@
 ﻿using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Extensions;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Media;
 
@@ -20,10 +21,17 @@ namespace QuickStartMenu.Infrastructure.Windows
             Path = path;
         }
 
-        public void Execute() 
-            => Process.Start(Path);
+        public void Execute()
+        {
+            try
+            {
+                Process.Start(Path);
+            }
+            catch (Win32Exception)
+            { }
+        }
 
-        public static ProgramQuickStartEntry FromPath(string path, string name) 
+        public static ProgramQuickStartEntry FromPath(string path, string name)
             => new ProgramQuickStartEntry(System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource(), name, path);
     }
 }
