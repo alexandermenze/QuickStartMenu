@@ -1,4 +1,4 @@
-﻿using QuickStartMenu.BusinessLogic.Algorithms;
+﻿using QuickStartMenu.BL.Algorithms;
 using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Extensions;
 using System.Collections.Generic;

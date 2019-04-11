@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Algorithms\DamerauLevenshtein.cs" />
     <Compile Include="Comparer\DamerauLevenshteinSorter.cs" />
-    <Compile Include="DamerauLevenshtein.cs" />
     <Compile Include="DataStructures\ListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
