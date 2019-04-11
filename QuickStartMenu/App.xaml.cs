@@ -1,6 +1,4 @@
-﻿using QuickStartMenu.BL.Comparer;
-using QuickStartMenu.BusinessLogic.DataStructures;
-using QuickStartMenu.Domain.Interfaces;
+﻿using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Domain.ValueTypes;
 using QuickStartMenu.Extensions;
 using QuickStartMenu.Infrastructure.Windows;

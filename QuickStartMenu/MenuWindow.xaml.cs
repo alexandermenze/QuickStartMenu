@@ -12,11 +12,11 @@ namespace QuickStartMenu
 {
     public partial class MenuWindow : Window
     {
-        private readonly IListView<IQuickStartEntry> _listView;
+        public IListView<IQuickStartEntry> ListView { get; }
 
         public MenuWindow(IEnumerable<IQuickStartEntry> quickStartEntries)
         {
-            _listView =
+            ListView =
                 new ListView<IQuickStartEntry>(quickStartEntries.ToList())
                 {
                     SortFunction = new DamerauLevenshteinSorter {CompareValueGetter = () => TxtSearchBar.Text}
@@ -28,7 +28,7 @@ namespace QuickStartMenu
 
             SetStartupPosition();
 
-            DataGrid.ItemsSource = _listView;
+            DataGrid.ItemsSource = ListView;
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace QuickStartMenu
                 return;
             }
 
-            _listView.Refresh();
+            ListView.Refresh();
             DataGrid.SelectedIndex = 0;
         }
 

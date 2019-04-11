@@ -43,6 +43,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IObjectState.cs" />
     <Compile Include="Interfaces\IKeyboardHook.cs" />
     <Compile Include="Interfaces\IListSorter.cs" />
     <Compile Include="Interfaces\IListView.cs" />
