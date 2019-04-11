@@ -5,16 +5,28 @@
         public static int CompareIgnoreCase(string a, string b) 
             => Compare(a.ToLowerInvariant(), b.ToLowerInvariant());
 
-        public static int Compare(string a, string b)
+        public static int Compare(string source, string compareTo)
         {
             var diff = 0;
-            var minLength = a.Length < b.Length ? a.Length : b.Length;
 
-            for (var i = 0; i < minLength; i++)
+            if (compareTo.Length <= source.Length)
+                return int.MaxValue - 1;
+
+            if (source.Length == 0)
+                return int.MaxValue;
+
+            for (var i = 0; i < source.Length; i++)
             {
-                if (a[i] != b[i])
+                if (source[i] != compareTo[i]) diff += 10;
+
+                if (i < source.Length - 1)
                 {
-                    diff++;
+                    if (source[i] != compareTo[i + 1]) diff += 5;
+                }
+
+                if (i >= 1)
+                {
+                    if (source[i] != compareTo[i + 1]) diff += 5;
                 }
             }
 

@@ -36,8 +36,8 @@ namespace QuickStartMenu
 
         private void OnDeactivated(object sender, EventArgs e)
         {
-            TxtSearchBar.Clear();
-            Hide();
+            //TxtSearchBar.Clear();
+            //Hide();
         }
 
         private void SetStartupPosition()
