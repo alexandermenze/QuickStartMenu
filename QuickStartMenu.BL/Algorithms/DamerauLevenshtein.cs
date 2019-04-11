@@ -1,62 +1,44 @@
 ﻿using System;
+using static System.String;
 
 namespace QuickStartMenu.BL.Algorithms
 {
     public static class DamerauLevenshtein
     {
-        public static int DamerauLevenshteinDistanceTo(this string @string, string targetString)
+        public static int DamerauLevenshteinDistanceTo(this string s, string targetString) 
+            => DamerauLevenshteinDistance(s, targetString);
+
+        public static int DistanceToIgnoreCase(this string s, string targetString) 
+            => DamerauLevenshteinDistance(s.ToLowerInvariant(), targetString.ToLowerInvariant());
+
+        private static int DamerauLevenshteinDistance(string string1, string string2)
         {
-            return DamerauLevenshteinDistance(@string, targetString);
-        }
+            if (IsNullOrEmpty(string1))
+                return !IsNullOrEmpty(string2) ? string2.Length : 0;
 
-        public static int DistanceToIgnoreCase(this string @string, string targetString)
-        {
-            return DamerauLevenshteinDistance(@string.ToLowerInvariant(), targetString.ToLowerInvariant());
-        }
+            if (IsNullOrEmpty(string2))
+                return !IsNullOrEmpty(string1) ? string1.Length : 0;
 
-        public static int DamerauLevenshteinDistance(string string1, string string2)
-        {
-            if (String.IsNullOrEmpty(string1))
-            {
-                if (!String.IsNullOrEmpty(string2))
-                    return string2.Length;
+            var length1 = string1.Length;
+            var length2 = string2.Length;
 
-                return 0;
-            }
+            var d = new int[length1 + 1, length2 + 1];
 
-            if (String.IsNullOrEmpty(string2))
-            {
-                if (!String.IsNullOrEmpty(string1))
-                    return string1.Length;
-
-                return 0;
-            }
-
-            int length1 = string1.Length;
-            int length2 = string2.Length;
-
-            int[,] d = new int[length1 + 1, length2 + 1];
-
-            int cost, del, ins, sub;
-
-            for (int i = 0; i <= d.GetUpperBound(0); i++)
+            for (var i = 0; i <= d.GetUpperBound(0); i++)
                 d[i, 0] = i;
 
-            for (int i = 0; i <= d.GetUpperBound(1); i++)
+            for (var i = 0; i <= d.GetUpperBound(1); i++)
                 d[0, i] = i;
 
-            for (int i = 1; i <= d.GetUpperBound(0); i++)
+            for (var i = 1; i <= d.GetUpperBound(0); i++)
             {
-                for (int j = 1; j <= d.GetUpperBound(1); j++)
+                for (var j = 1; j <= d.GetUpperBound(1); j++)
                 {
-                    if (string1[i - 1] == string2[j - 1])
-                        cost = 0;
-                    else
-                        cost = 1;
+                    var cost = string1[i - 1] == string2[j - 1] ? 0 : 1;
 
-                    del = d[i - 1, j] + 1;
-                    ins = d[i, j - 1] + 1;
-                    sub = d[i - 1, j - 1] + cost;
+                    var del = d[i - 1, j] + 1;
+                    var ins = d[i, j - 1] + 1;
+                    var sub = d[i - 1, j - 1] + cost;
 
                     d[i, j] = Math.Min(del, Math.Min(ins, sub));
 

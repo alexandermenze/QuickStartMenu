@@ -5,11 +5,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-namespace QuickStartMenu.BusinessLogic.DataStructures
+namespace QuickStartMenu.BL.DataStructures
 {
     public class ListView<T> : IListView<T>
     {
-        private IList<T> _items = new List<T>();
+        private IList<T> _items;
 
         public IList<T> Items => GetItemsSorted();
         public IListSorter<T> SortFunction { get; set; }

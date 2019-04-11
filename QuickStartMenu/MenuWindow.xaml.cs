@@ -1,11 +1,11 @@
 ﻿using QuickStartMenu.BL.Comparer;
+using QuickStartMenu.BL.DataStructures;
 using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuickStartMenu
@@ -17,9 +17,9 @@ namespace QuickStartMenu
         public MenuWindow(IEnumerable<IQuickStartEntry> quickStartEntries)
         {
             _listView =
-                new BusinessLogic.DataStructures.ListView<IQuickStartEntry>(quickStartEntries.ToList())
+                new ListView<IQuickStartEntry>(quickStartEntries.ToList())
                 {
-                    SortFunction = new DamerauLevenshteinSorter { CompareValueGetter = () => TxtSearchBar.Text }
+                    SortFunction = new DamerauLevenshteinSorter {CompareValueGetter = () => TxtSearchBar.Text}
                 };
 
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace QuickStartMenu
             Top = desktopWorkingArea.Bottom - Height;
         }
 
-        private void DataGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e) 
+        private void DataGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
             => StartSelected();
 
         private void DataGrid_OnKeyPress(object sender, KeyEventArgs e)
@@ -71,7 +71,7 @@ namespace QuickStartMenu
             DataGrid.SelectedIndex = 0;
         }
 
-        private void StartSelected() 
+        private void StartSelected()
             => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
     }
 }
