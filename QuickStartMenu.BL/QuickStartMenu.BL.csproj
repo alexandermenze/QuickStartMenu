@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\DamerauLevenshtein.cs" />
-    <Compile Include="Comparer\DamerauLevenshteinSorter.cs" />
+    <Compile Include="Algorithms\LongestCommonSubsequence.cs" />
+    <Compile Include="Algorithms\StringDifference.cs" />
+    <Compile Include="Comparer\QuickStartEntrySorter.cs" />
     <Compile Include="DataStructures\ListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

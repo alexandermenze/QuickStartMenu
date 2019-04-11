@@ -19,7 +19,7 @@ namespace QuickStartMenu
             ListView =
                 new ListView<IQuickStartEntry>(quickStartEntries.ToList())
                 {
-                    SortFunction = new DamerauLevenshteinSorter {CompareValueGetter = () => TxtSearchBar.Text}
+                    SortFunction = new QuickStartEntrySorter {CompareValueGetter = () => TxtSearchBar.Text}
                 };
 
             InitializeComponent();
