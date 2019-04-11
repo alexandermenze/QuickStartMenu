@@ -6,7 +6,7 @@ namespace QuickStartMenu.Infrastructure.FileSystem
 {
     public class FolderState : IObjectState
     {
-        private DirectoryInfo _directory;
+        private readonly DirectoryInfo _directory;
         private DateTime _lastWriteTimeUtc = DateTime.MinValue;
 
         public FolderState(DirectoryInfo directory)
@@ -18,7 +18,6 @@ namespace QuickStartMenu.Infrastructure.FileSystem
         {
             _directory.Refresh();
             return _directory.LastWriteTimeUtc > _lastWriteTimeUtc;
-
         }
 
         public void Update()

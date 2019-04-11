@@ -1,40 +1,42 @@
-﻿using QuickStartMenu.Domain.Interfaces;
+﻿using System;
+using QuickStartMenu.Domain.Interfaces;
 using QuickStartMenu.Domain.ValueTypes;
 using QuickStartMenu.Extensions;
 using QuickStartMenu.Infrastructure.Windows;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using QuickStartMenu.Infrastructure.FileSystem;
 
 namespace QuickStartMenu
 {
     public partial class App : Application
     {
         private readonly Settings.Settings _settings;
+        private readonly IObjectState _shortcutsFolderState;
         private IKeyboardHook _keyboardHook;
         private MenuWindow _menuWindow;
 
         public App()
         {
             _settings = new Settings.Settings(QuickStartMenu.Properties.Settings.Default);
+            _shortcutsFolderState = new FolderState(new DirectoryInfo(GetShortcutsFolder()));
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            EnsureFolderExists(GetShortcutsFolder());
+            _shortcutsFolderState.Update();
+
             _keyboardHook = new WindowsKeyboardHook();
-            _menuWindow = new MenuWindow(GetShortcuts());
+            _menuWindow = new MenuWindow(GetShortcuts(GetShortcutsFolder()));
             RegisterHotKeys();
         }
 
-        private IList<IQuickStartEntry> GetShortcuts()
+        private IList<IQuickStartEntry> GetShortcuts(string shortcutsFolder)
         {
-            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create);
-            var shortcutsFolder = Path.Combine(appDataPath, nameof(QuickStartMenu), "Shortcuts");
-            EnsureFolderExists(shortcutsFolder);
-
             return new DirectoryInfo(shortcutsFolder)
                 .EnumerateFiles()
                 .Select(file => 
@@ -43,6 +45,13 @@ namespace QuickStartMenu
                         file.GetFileNameWithoutExtension(), 
                         file.FullName))
                 .ToList<IQuickStartEntry>();
+        }
+
+        private string GetShortcutsFolder()
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create);
+            var shortcutsFolder = Path.Combine(appDataPath, nameof(QuickStartMenu), "Shortcuts");
+            return shortcutsFolder;
         }
 
         private void EnsureFolderExists(string path) 
@@ -54,7 +63,12 @@ namespace QuickStartMenu
             _keyboardHook.KeyPressed += KeyboardHook_OnKeyPressed;
         }
 
-        private void KeyboardHook_OnKeyPressed(object sender, KeyPressedEventArgs e) 
-            => _menuWindow.BringToTop();
+        private void KeyboardHook_OnKeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            if (_shortcutsFolderState.HasChanged())
+                _menuWindow.ListView.Update(GetShortcuts(GetShortcutsFolder()));
+
+            _menuWindow.BringToTop();
+        }
     }
 }
