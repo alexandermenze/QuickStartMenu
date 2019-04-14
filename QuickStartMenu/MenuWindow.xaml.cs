@@ -36,8 +36,8 @@ namespace QuickStartMenu
 
         private void OnDeactivated(object sender, EventArgs e)
         {
-            //TxtSearchBar.Clear();
-            //Hide();
+            TxtSearchBar.Clear();
+            Hide();
         }
 
         private void SetStartupPosition()
@@ -72,6 +72,9 @@ namespace QuickStartMenu
         }
 
         private void StartSelected()
-            => ((IQuickStartEntry)DataGrid.SelectedValue).Execute();
+        {
+            ((IQuickStartEntry) DataGrid.SelectedValue).Execute();
+            Hide();
+        }
     }
 }
