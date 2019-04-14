@@ -13,7 +13,7 @@ namespace QuickStartMenu.BL.Comparer
 
         public IList<IQuickStartEntry> Sort(IList<IQuickStartEntry> list)
         {
-            return list.OrderBy(entry => StringDifference.CompareIgnoreCase(CompareValue, entry.Name)).ToList();
+            return list.OrderBy(entry => StringDifference.CompareWordsIgnoreCase(CompareValue, entry.Name)).ToList();
         }
     }
 }

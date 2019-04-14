@@ -1,9 +1,23 @@
-﻿namespace QuickStartMenu.BL.Algorithms
+﻿using System;
+using System.Linq;
+
+namespace QuickStartMenu.BL.Algorithms
 {
     public static class StringDifference
     {
         public static int CompareIgnoreCase(string a, string b) 
             => Compare(a.ToLowerInvariant(), b.ToLowerInvariant());
+
+        public static int CompareWordsIgnoreCase(string a, string b) 
+            => CompareMin(a.ToLowerInvariant(), b.ToLowerInvariant());
+
+        public static int CompareMin(string source, string compareTo)
+        {
+            var words = compareTo.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            return words
+                .Select(w => Compare(source, w))
+                .Min();
+        }
 
         public static int Compare(string source, string compareTo)
         {
