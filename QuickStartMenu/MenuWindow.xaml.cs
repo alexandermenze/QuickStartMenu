@@ -61,7 +61,7 @@ namespace QuickStartMenu
 
         private void TxtSearchBar_OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Down)
+            if ((e.Key == Key.Enter || e.Key == Key.Down) && DataGrid.SelectedCells.Count > 0)
             {
                 Keyboard.Focus(DataGrid.SelectedCells.First().GetCell());
                 return;
