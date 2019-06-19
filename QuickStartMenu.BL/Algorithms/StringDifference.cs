@@ -21,7 +21,10 @@ namespace QuickStartMenu.BL.Algorithms
 
         public static int Compare(string source, string compareTo)
         {
-            var diff = 0;
+            if (source.Equals(compareTo))
+                return 0;
+
+            var diff = 1;
 
             if (compareTo.Length <= source.Length)
                 return int.MaxValue - 1;
